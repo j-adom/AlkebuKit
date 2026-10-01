@@ -1,6 +1,6 @@
 <script>
 	import CarouselCard from './CarouselCard.svelte'	
-	import Carousel from '@beyonk/svelte-carousel'
+	import Carousel from 'embla-carousel-svelte'
 	import { ChevronLeftIcon, ChevronRightIcon } from 'svelte-feather-icons'
 
 	export let books;
@@ -28,19 +28,28 @@
 </script>
 
 <style>
-        .control :global(svg) {
+        /* .control :global(svg) {
 		width: 100%;
 		height: 100%;
 		color: var(--thm-primary);
         border: 2px solid var(--thm-primary);
         background-color: var(--thm-base);
 		border-radius: 32px;
-    }
-
+    } */
+	.embla {
+		overflow: hidden;
+	}
+	.embla__container {
+		display: flex;
+	}
+	.embla__slide {
+		flex: 0 0 100%;
+		min-width: 0;
+	}
     
 </style>
 
-<Carousel perPage={{ 1000: 4, 800: 3, 500: 2 }}>
+<!-- <Carousel perPage={{ 1000: 4, 800: 3, 500: 2 }}>
     <span class="control" slot="left-control">
         <ChevronLeftIcon />
     </span>
@@ -52,4 +61,14 @@
     <span class="control" slot="right-control">
         <ChevronRightIcon />
     </span>
-</Carousel>
+</Carousel> -->
+
+<div class="carousel">
+	{#each shuffledBooks as book, i}
+		<div id="slide{i}" class="carousel-item">
+			<CarouselCard {book} />
+		</div>	
+	{/each}
+		<button class="embla__prev">Prev</button>
+		<button class="embla__next">Next</button>
+  </div>
